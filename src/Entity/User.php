@@ -43,6 +43,11 @@ class User
      */
     private $age;
 
+    /**
+     * @ORM\OneToOne(targetEntity=ToDoList::class, inversedBy="owner", cascade={"persist", "remove"})
+     */
+    private $todolist;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -104,6 +109,18 @@ class User
     public function setAge(int $age): self
     {
         $this->age = $age;
+
+        return $this;
+    }
+
+    public function getTodolist(): ?ToDoList
+    {
+        return $this->todolist;
+    }
+
+    public function setTodolist(?ToDoList $todolist): self
+    {
+        $this->todolist = $todolist;
 
         return $this;
     }
