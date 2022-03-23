@@ -6,12 +6,12 @@ x-cache-from:
       - php:8.0-fpm
 
 services:
-  db:
+  db-test-unitaire:
     image: postgres:13-alpine
     restart: always
     environment:
         POSTGRES_PASSWORD: password
-        POSTGRES_DB: db
+        POSTGRES_DB: db-test-unitaire
         POSTGRES_USER: postgres
     volumes:
       - db-data:/var/lib/postgresql/data:rw
@@ -20,13 +20,13 @@ services:
         published: 5432
         protocol: tcp
 
-  php:
+  php-test-unitaire:
     image: php:8.0-fpm
     build:
       context: ./docker/php-fpm
       <<: *app-cache-from
     depends_on:
-      - db
+      - db-test-unitaire
     environment:
       - APP_ENV=${APP_ENV}
       - APP_SECRET=${APP_SECRET}
@@ -40,7 +40,7 @@ services:
       - ./:/var/www
       - app-cache:/var/www/var
 
-  nginx:
+  nginx-test-unitaire:
     build:
       context: ./docker/nginx
     volumes:
@@ -50,7 +50,7 @@ services:
       - ./docker/nginx/conf.d/:/etc/nginx/conf.d
       - ./docker/logs:/var/log
     depends_on:
-      - php
+      - php-test-unitaire
     ports:
       - "80:80"
       - "443:443"
