@@ -14,16 +14,13 @@ class ItemFixture extends Fixture
     public function load(ObjectManager $manager): void
     {
         $faker = \Faker\Factory::create();
-        $items = array();
 
-        for ($i = 0; $i < $faker->numberBetween($this->minItems, $this->maxItems); $i++) {
-            $object = (new Item())
-                ->setName($faker->name)
-                ->setContent($faker->sentences(2))
-                ->setCreationDate($faker->dateTime);
-            array_push($items, $object);
-        }
-        $manager->persist($items);
+        $object = (new Item())
+            ->setName($faker->name)
+            ->setContent($faker->sentences(2))
+            ->setCreationDate($faker->dateTime);
+
+        $manager->persist($object);
         $manager->flush();
     }
 }
