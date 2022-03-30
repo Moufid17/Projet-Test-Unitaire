@@ -72,8 +72,10 @@ class ToDoList
     public function addItem(Item $item): self
     {
         if (!$this->items->contains($item)) {
-            $this->items[] = $item;
-            $item->setTodolist($this);
+            if(checkItem()){
+                $this->items[] = $item;
+                $item->setTodolist($this);
+            }
         }
 
         return $this;
@@ -89,5 +91,23 @@ class ToDoList
         }
 
         return $this;
+    }
+    
+    private function checkItem(): boolean
+    {
+        // Compter le nombre d'item déjà enrégister
+        $itemsCollection = $todolist->getItems();
+        $nb_items = count($itemsCollection);
+        # Est-ce la bonne manière.
+        $lastItem_dateCreated = $itemsCollection[$nb_items - 1 ].getCreationDate();
+
+        // S'il y a 10 items, rien ne sera fait.
+        if ($nb_items < 10) { //Critère 2 : vrai
+            # Comment comparer deux dates?
+            if((Date.now() - $lastItem_dateCreated)> 30){ // Critère 4 : Vrai
+                return true;
+            }
+        }
+        return false;
     }
 }
