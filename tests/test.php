@@ -11,4 +11,11 @@ class test extends TestCase
     }
 }
 
-/*  docker-compose exec php bin/phpunit tests/test.php */ 
+/*
+dd();
+
+docker-compose exec php bin/phpunit tests/test.php
+
+docker-compose exec php bin/phpunit --testdox tests/ToDoListTest.php
+
+ */
