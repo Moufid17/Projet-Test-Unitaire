@@ -9,7 +9,7 @@ class UserTest extends TestCase
 
     protected function setUp():void
     {
-        $this->user = new User("daniel@gmail.com","Daniiel", "Larssonsdqsd", "passwordTest", 24);
+        $this->user = new User("daniel@gmail.com","Daniel", "Larssonsdqsd", "passwordTest", 24);
         parent::setUp();
     }
 
