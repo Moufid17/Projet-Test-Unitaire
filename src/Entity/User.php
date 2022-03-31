@@ -120,7 +120,7 @@ class User
 
     public function setTodolist(?ToDoList $todolist): self
     {
-        if(checkToDoList()){
+        if($this->checkToDoList() == false){
             $this->todolist = $todolist;
         }
         return $this;
@@ -143,7 +143,7 @@ class User
 
     private function checkToDoList(): boolean
     {
-        # Vérifier si l'utilisateur à un todolist
+        # Vérifier si l'utilisateur à une todolist
         return ($this->getTodolist() === null); 
     }
 }

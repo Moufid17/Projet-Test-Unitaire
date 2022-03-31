@@ -96,14 +96,16 @@ class ToDoList
     private function checkItem(): boolean
     {
         // Compter le nombre d'item déjà enrégister
-        $itemsCollection = $todolist->getItems();
+        $itemsCollection = $this->getItems();
         $nb_items = count($itemsCollection);
         # Est-ce la bonne manière.
-        $lastItem_dateCreated = $itemsCollection[$nb_items - 1 ].getCreationDate();
+        #$lastItem_dateCreated = $itemsCollection[$nb_items - 1 ].getCreationDate();
+        $lastItem_dateCreated = $itemsCollection->last()->getCreationDate();
 
         // S'il y a 10 items, rien ne sera fait.
         if ($nb_items < 10) { //Critère 2 : vrai
             # Comment comparer deux dates?
+            # https://www.php.net/manual/fr/datetime.diff.php
             if((Date.now() - $lastItem_dateCreated)> 30){ // Critère 4 : Vrai
                 return true;
             }
