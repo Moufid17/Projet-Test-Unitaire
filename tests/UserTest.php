@@ -1,5 +1,6 @@
 <?php
 
+use App\Entity\User;
 use PHPUnit\Framework\TestCase;
 
 class UserTest extends TestCase
@@ -8,7 +9,7 @@ class UserTest extends TestCase
 
     protected function setUp():void
     {
-        $this->user =new User("daniel@test.com","daniel","Larsson", "12345d", "24");
+        $this->user = new User("daniel@gmail.com","Daniiel", "Larssonsdqsd", "passwordTest", 24);
         parent::setUp();
     }
 
@@ -29,13 +30,13 @@ class UserTest extends TestCase
         $this->assertFalse($this->user->isValid());
     }
 
-    public function testNotValidDueToFName()
+    public function testNotValidDueToFirstName()
     {
         $this->user->setFirstname("");
         $this->assertFalse($this->user->isValid());
     }
 
-    public function testNotValidDueToLName()
+    public function testNotValidDueToLastName()
     {
         $this->user->setLastname("");
         $this->assertFalse($this->user->isValid());

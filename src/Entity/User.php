@@ -48,6 +48,26 @@ class User
      */
     private $todolist;
 
+    /**
+     * @param $id
+     * @param $email
+     * @param $firstname
+     * @param $lastname
+     * @param $password
+     * @param $age
+     * @param $todolist
+     */
+    public function __construct($email, $firstname, $lastname, $password, $age)
+    {
+        $this->email = $email;
+        $this->firstname = $firstname;
+        $this->lastname = $lastname;
+        $this->password = $password;
+        $this->age = $age;
+        $this->todolist = null;
+    }
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -126,11 +146,11 @@ class User
         return $this;
     }
 
-    public function isValid(): boolean
+    public function isValid(): bool
     {
         return !empty($this->email)
             && filter_var($this->email, FILTER_VALIDATE_EMAIL)
-            & !empty($this->firstname)
+            && !empty($this->firstname)
             && !empty($this->lastname)
             && !empty($this->password)
             && (strlen($this->password) < 41)
@@ -141,7 +161,7 @@ class User
         ;
     }
 
-    private function checkToDoList(): boolean
+    private function checkToDoList(): bool
     {
         # Vérifier si l'utilisateur à une todolist
         return ($this->getTodolist() === null); 
