@@ -42,6 +42,11 @@ class Item
      */
     private $todolist;
 
+    public function __construct()
+    {
+        $this->creationDate = new \DateTime('now');
+    }
+
     public function getId(): ?int
     {
         return $this->id;

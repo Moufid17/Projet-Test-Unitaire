@@ -120,8 +120,30 @@ class User
 
     public function setTodolist(?ToDoList $todolist): self
     {
-        $this->todolist = $todolist;
-
+        if($this->checkToDoList() == false){
+            $this->todolist = $todolist;
+        }
         return $this;
+    }
+
+    public function isValid(): boolean
+    {
+        return !empty($this->email)
+            && filter_var($this->email, FILTER_VALIDATE_EMAIL)
+            & !empty($this->firstname)
+            && !empty($this->lastname)
+            && !empty($this->password)
+            && (strlen($this->password) < 41)
+            && (strlen($this->password) >= 8)
+            && !empty($this->age)
+            && (gettype($this->age) == 'integer')
+            && ($this->age >= 13)
+        ;
+    }
+
+    private function checkToDoList(): boolean
+    {
+        # Vérifier si l'utilisateur à une todolist
+        return ($this->getTodolist() === null); 
     }
 }
