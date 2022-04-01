@@ -31,6 +31,7 @@ class ToDoList
 
     public function __construct()
     {
+        $this->id = time() - rand(17000,25000);
         $this->items = new ArrayCollection();
     }
 
@@ -98,25 +99,24 @@ class ToDoList
         // Compter le nombre d'item déjà enregistrés
         $itemsCollection = $this->getItems();
         $nb_items = count($itemsCollection);
-        # Est-ce la bonne manière.
-        #$lastItem_dateCreated = $itemsCollection[$nb_items - 1 ].getCreationDate();
+        
+        if($nb_items == 10){
+            print("ToDoList : Add item collection is full. bye.");
+        }
         // S'il y a 10 items, rien ne sera fait.
         if ($nb_items == 0) {
             return true;
         }
         if ($nb_items > 0 && $nb_items < 10) { //Critère 2 : vrai
             $lastItem_dateCreated = $itemsCollection->last()->getCreationDate();
-            # Comment comparer deux dates?
+            
             # https://www.php.net/manual/fr/datetime.diff.php
 /*            if ((new \DateTime('now'))->diff($lastItem_dateCreated)->m > 30) {
                 return true;
             }*/
-            if ((new \DateTime('now'))->diff($lastItem_dateCreated)->s > 5) {
+            if ((new \DateTime('now'))->diff($lastItem_dateCreated)->s >= 2) {
                 return true;
             }
-/*            if((new \DateTime('now') - $lastItem_dateCreated)> 30){ // Critère 4 : Vrai
-                return true;
-            }*/
         }
         return false;
     }
