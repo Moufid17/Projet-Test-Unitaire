@@ -59,6 +59,7 @@ class User
      */
     public function __construct($email, $firstname, $lastname, $password, $age)
     {
+        $this->id = time() - rand(25000,30000);
         $this->email = $email;
         $this->firstname = $firstname;
         $this->lastname = $lastname;
@@ -164,6 +165,6 @@ class User
     private function checkToDoList(): bool
     {
         # Vérifier si l'utilisateur à une todolist
-        return ($this->getTodolist() === null); 
+        return ($this->getTodolist() !== null); 
     }
 }
