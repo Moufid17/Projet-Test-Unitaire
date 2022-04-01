@@ -45,6 +45,17 @@ class ToDoListTest extends TestCase
         $this->assertNotEquals(2, $this->todolist->getItems()->count());
     }
 
+    public function testIsValidDueToTwoItemsHaveSameName()
+    {
+        $item1 = new Item("Item1_name","Item1_content");
+        sleep(1);
+        $item2 = new Item("Item1_name","Item2_content");
+        $this->todolist->addItem($item1);
+        $this->todolist->addItem($item2);
+        // dd($this->todolist->getItems()->count());
+        $this->assertEquals(1, $this->todolist->getItems()->count());
+    }
+
     public function testAddElevenItem()
     {
         #Add 10 Items
