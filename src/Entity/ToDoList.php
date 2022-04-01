@@ -73,7 +73,7 @@ class ToDoList
     public function addItem(Item $item): self
     {
         if (!$this->items->contains($item)) {
-            if($this->checkItem()){
+            if($this->checkToDoListItems()){
                 $this->items[] = $item;
                 $item->setTodolist($this);
             }
@@ -94,7 +94,7 @@ class ToDoList
         return $this;
     }
     
-    private function checkItem(): bool
+    private function checkToDoListItems(): bool
     {
         // Compter le nombre d'item déjà enregistrés
         $itemsCollection = $this->getItems();
