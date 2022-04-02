@@ -7,6 +7,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+// ExternalServices \EmailSenderService
+use App\ExternalServices\EmailSenderService;
+
 /**
  * @ORM\Entity(repositoryClass=ToDoListRepository::class)
  */
@@ -70,10 +73,22 @@ class ToDoList
         return $this->items;
     }
 
-    public function addItem(Item $item): self
+    public function addItem(Item $item, EmailSenderService $emailSenderMessage = null): self
     {
         if (!$this->items->contains($item)) {
             if($this->checkToDoListItems()){
+                
+                // External Service
+                if(count($this->getItems()) == 7){
+                    if($emailSenderMessage !== null){
+                        $this->getOwner()->addMessage($emailSenderMessage->sendEmail());
+                    }
+                    // else{
+                    //     print("\n emailSender Is null ! \n");
+                    // }
+                }
+                // -----------------
+
                 $this->items[] = $item;
                 $item->setTodolist($this);
             }
@@ -100,9 +115,10 @@ class ToDoList
         $itemsCollection = $this->getItems();
         $nb_items = count($itemsCollection);
         
-        if($nb_items == 10){
-            print("ToDoList : Add item collection is full. bye.");
-        }
+        // if($nb_items == 10){
+        //     print("ToDoList : Add item collection is full. bye.");
+        // }
+        
         // S'il y a 10 items, rien ne sera fait.
         if ($nb_items == 0) {
             return true;
@@ -110,10 +126,10 @@ class ToDoList
         if ($nb_items > 0 && $nb_items < 10) { //Critère 2 : vrai
             $lastItem_dateCreated = $itemsCollection->last()->getCreationDate();
             
-            # https://www.php.net/manual/fr/datetime.diff.php
-/*            if ((new \DateTime('now'))->diff($lastItem_dateCreated)->m > 30) {
+            /*if ((new \DateTime('now'))->diff($lastItem_dateCreated)->m > 30) {
                 return true;
             }*/
+
             if ((new \DateTime('now'))->diff($lastItem_dateCreated)->s >= 2) {
                 return true;
             }

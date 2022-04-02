@@ -4,7 +4,6 @@ use App\Entity\Item;
 use App\Entity\ToDoList;
 use App\Entity\User;
 use PHPUnit\Framework\TestCase;
-use Doctrine\ORM\EntityManagerInterface;
 
 class ItemTest extends TestCase
 {

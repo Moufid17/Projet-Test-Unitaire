@@ -123,7 +123,7 @@ class Item
         $itemsCollection = $this->getTodolist()->getItems();
         
         if(strlen($params) == 0){
-            print("\n-- Empty Error !\n");
+            // print("\n-- Empty Error !\n");
             return false;
         }
         if($itemsCollection !== null){

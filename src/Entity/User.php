@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -49,6 +51,11 @@ class User
     private $todolist;
 
     /**
+     * ArrayCollection
+     */
+    private $inbox;
+
+    /**
      * @param $id
      * @param $email
      * @param $firstname
@@ -66,6 +73,7 @@ class User
         $this->password = $password;
         $this->age = $age;
         $this->todolist = null;
+        $this->inbox = new ArrayCollection();
     }
 
 
@@ -166,5 +174,14 @@ class User
     {
         # Vérifier si l'utilisateur à une todolist
         return ($this->getTodolist() !== null); 
+    }
+
+    public function addMessage(string $message): void{
+        $this->inbox[] = $message;
+    }
+
+    public function getInbox(): collection
+    {
+        return $this->inbox;
     }
 }
