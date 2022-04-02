@@ -6,10 +6,10 @@ use App\Repository\ItemRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-
 /**
  * @ORM\Entity(repositoryClass=ItemRepository::class)
  */
+// class Item extends ItemBase
 class Item
 {
     /**
@@ -37,6 +37,32 @@ class Item
      */
     private $creationDate;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=ToDoList::class, inversedBy="items")
+     */
+    private $todolist;
+
+
+    public function __construct($name, $content)
+    {
+        # Comment le faire ? Optionel pour le projet.
+        // $em = $this->setEntityManager(EntityManagerInterface);
+
+        // $itemsCollection =  $this->em->getRepository(ItemRepository::class)->findAll(); 
+        
+        // if($itemsCollection->count() == 0){
+        //     $this->id = 1;
+        // }else if($itemsCollection->count() > 0){
+        //     $this->id = $itemRepository->findAll()->last()->getId() + 1;
+        // }
+        if($this->isValid($name , $content)){
+            $this->id = time() - rand(1000,17000);
+            $this->name = $name;
+            $this->content = $content;
+            $this->creationDate = new \DateTime('now');
+        }
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -49,8 +75,9 @@ class Item
 
     public function setName(string $name): self
     {
-        $this->name = $name;
-
+        if($this->isValid($name, $this->getContent())){
+            $this->name = $name;
+        }
         return $this;
     }
 
@@ -61,12 +88,13 @@ class Item
 
     public function setContent(string $content): self
     {
-        $this->content = $content;
-
+        if($this->isValid($this->getName(),$content)){
+            $this->content = $content;
+        }
         return $this;
     }
 
-    public function getCreationDate(): ?\DateTimeInterface
+    public function getCreationDate(): ?\DateTimeInterface 
     {
         return $this->creationDate;
     }
@@ -76,5 +104,32 @@ class Item
         $this->creationDate = $creationDate;
 
         return $this;
+    }
+
+    public function getTodolist(): ?ToDoList
+    {
+        return $this->todolist;
+    }
+
+    public function setTodolist(?ToDoList $todolist): self
+    {
+        $this->todolist = $todolist;
+
+        return $this;
+    }
+
+    public function isValid($name = "",$content = ""):bool
+    {
+       
+        // All items
+        // $itemsCollection = $this->getTodolist()->getItems();
+        
+        if(strlen($name) == 0){
+            // print("\n-- Empty Error !\n");
+            return false;
+        }
+
+        // Content size less than 1000
+        return (strlen($content) <= 1000);
     }
 }

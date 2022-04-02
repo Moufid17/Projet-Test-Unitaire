@@ -23,3 +23,8 @@
 .idea
 **/.DS_Store
 ###< IDE/OS ###
+
+###< vscode >###
+.vscode/
+db@localhost.session.sql
+

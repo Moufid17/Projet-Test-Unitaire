@@ -11,4 +11,12 @@ class test extends TestCase
     }
 }
 
-/*  docker-compose exec php bin/phpunit tests/test.php */ 
+/*
+dd();
+// $this->assertInstanceOf(Item::class,$this->item);
+
+docker-compose exec php bin/phpunit tests/test.php
+
+docker-compose exec php bin/phpunit --testdox tests/ToDoListTest.php
+
+ */
