@@ -77,20 +77,18 @@ class ToDoList
     {
         if (!$this->items->contains($item)) {
             if($this->checkToDoListItems()){
-                
-                // External Service
-                if(count($this->getItems()) == 7){
-                    if($emailSenderMessage !== null){
-                        $this->getOwner()->addMessage($emailSenderMessage->sendEmail());
+                if($this->checkItemName($item->getName())){
+                    // External Service
+                    if(count($this->getItems()) == 7){
+                        if($emailSenderMessage !== null){
+                            $this->getOwner()->addMessage($emailSenderMessage->sendEmail());
+                        }
                     }
-                    // else{
-                    //     print("\n emailSender Is null ! \n");
-                    // }
+                    // -----------------
+                    
+                    $this->items[] = $item;
+                    $item->setTodolist($this);
                 }
-                // -----------------
-
-                $this->items[] = $item;
-                $item->setTodolist($this);
             }
         }
 
@@ -123,17 +121,38 @@ class ToDoList
         if ($nb_items == 0) {
             return true;
         }
+
         if ($nb_items > 0 && $nb_items < 10) { //Critère 2 : vrai
             $lastItem_dateCreated = $itemsCollection->last()->getCreationDate();
             
-            /*if ((new \DateTime('now'))->diff($lastItem_dateCreated)->m > 30) {
-                return true;
-            }*/
-
-            if ((new \DateTime('now'))->diff($lastItem_dateCreated)->s >= 2) {
+            // Interval de temps : 30 minutes
+            if ((new \DateTime('now'))->diff($lastItem_dateCreated)->m >= 30) {
                 return true;
             }
+
+            // Interval de temps : 2 secondes
+            // if ((new \DateTime('now'))->diff($lastItem_dateCreated)->s >= 2) {
+            //     return true;
+            // }
         }
         return false;
+    }
+
+    public function checkItemName($name){
+        $itemsCollection = $this->getItems();
+
+        if($itemsCollection !== null){
+            // Unique name
+            foreach($itemsCollection as $item){
+                if($item->getName() == $name){
+                    // if(strval($item->getId()) == strval($this->getId())){
+                    //     return true;
+                    // }
+                    return false;
+                }
+                
+            }
+        }
+        return true;
     }
 }

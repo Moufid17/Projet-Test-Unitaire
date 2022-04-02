@@ -55,10 +55,12 @@ class Item
         // }else if($itemsCollection->count() > 0){
         //     $this->id = $itemRepository->findAll()->last()->getId() + 1;
         // }
-        $this->id = time() - rand(1000,17000);
-        $this->name = $name;
-        $this->content = $content;
-        $this->creationDate = new \DateTime('now');
+        if($this->isValid($name , $content)){
+            $this->id = time() - rand(1000,17000);
+            $this->name = $name;
+            $this->content = $content;
+            $this->creationDate = new \DateTime('now');
+        }
     }
 
     public function getId(): ?int
@@ -73,7 +75,7 @@ class Item
 
     public function setName(string $name): self
     {
-        if($this->isValid($name)){
+        if($this->isValid($name, $this->getContent())){
             $this->name = $name;
         }
         return $this;
@@ -86,7 +88,7 @@ class Item
 
     public function setContent(string $content): self
     {
-        if($this->isValid($content)){
+        if($this->isValid($this->getName(),$content)){
             $this->content = $content;
         }
         return $this;
@@ -116,29 +118,18 @@ class Item
         return $this;
     }
 
-    public function isValid($params):bool
+    public function isValid($name = "",$content = ""):bool
     {
        
         // All items
-        $itemsCollection = $this->getTodolist()->getItems();
+        // $itemsCollection = $this->getTodolist()->getItems();
         
-        if(strlen($params) == 0){
+        if(strlen($name) == 0){
             // print("\n-- Empty Error !\n");
             return false;
         }
-        if($itemsCollection !== null){
-            // Unique name
-            foreach($itemsCollection as $item){
-                if($item->getName() == $this->getName()){
-                    if(strval($item->getId()) == strval($this->getId())){
-                        return true;
-                    }
-                    return false;
-                }
-                
-            }
-        }
+
         // Content size less than 1000
-        return (strlen($this->getContent()) <= 1000);
+        return (strlen($content) <= 1000);
     }
 }

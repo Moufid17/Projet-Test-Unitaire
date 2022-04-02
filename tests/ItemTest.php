@@ -28,11 +28,11 @@ class ItemTest extends TestCase
         $this->assertNotEmpty($this->item->getName());
     }
 
-    public function testValidDueToContentEmptyIsNotConsidered()
+    public function testValidDueToContentIsEmpty()
     {
         $this->item->setContent("");
         // dd($this->item); // Voir l'item. Aucun changement de content n'est effectuer.
-        $this->assertNotEmpty($this->item->getContent());
+        $this->assertEmpty($this->item->getContent());
     }
 
     public function testValidDueToNameIsNotEmpty()

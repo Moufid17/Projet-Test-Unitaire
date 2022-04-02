@@ -30,32 +30,46 @@ class ToDoListTest extends TestCase
     public function testSecondItemValidInterval()
     {
         $item1 = new Item("Item1_name","Item1_content");
-        sleep(2);
+        // Interval de temps : 30 minutes
+        sleep(30*60);
+
+        // Interval de temps : 2 secondes
+        // sleep(2);
+        
         $item2 = new Item("Item2_name","Item2_content");
         $this->todolist->addItem($item1);
         $this->todolist->addItem($item2);
-        // dd($tab);
-        // $tab = [$item1, $item2];
+
         $this->assertEquals(2, $this->todolist->getItems()->count());
     }
 
     public function testSecondItemInvalidInterval()
     {
         $item1 = new Item("Item1_name","Item1_content");
-        sleep(1);
+        // Interval de temps : 29 minutes
+        sleep(29*60);
+        // Interval de temps : 1 seconde
+        // sleep(1);
+
         $item2 = new Item("Item2_name","Item2_content");
         $this->todolist->addItem($item1);
         $this->todolist->addItem($item2);
+
         $this->assertNotEquals(2, $this->todolist->getItems()->count());
     }
 
     public function testIsValidDueToTwoItemsHaveSameNameIsNotConsidered()
     {
         $item1 = new Item("Item1_name","Item1_content");
-        sleep(1);
+        // Interval de temps : 30 minutes
+        sleep(30*60);
+        // Interval de temps : 2 secondes
+        // sleep(2);
+
         $item2 = new Item("Item1_name","Item2_content");
         $this->todolist->addItem($item1);
         $this->todolist->addItem($item2);
+
         // dd($this->todolist->getItems()->count());
         $this->assertEquals(1, $this->todolist->getItems()->count());
     }
@@ -65,7 +79,10 @@ class ToDoListTest extends TestCase
         #Add 10 Items
         for($i = 0; $i < 10; $i++) {
             $this->todolist->addItem(new Item("Item_name" . strval($i),"Item_content" . strval($i)));
-            sleep(2);
+            // Interval de temps : 30 minutes
+            sleep(30*60);
+            // Interval de temps : 2 secondes
+            // sleep(2);
         }
         
         // dd($this->todolist->getItems()->count());
@@ -78,8 +95,12 @@ class ToDoListTest extends TestCase
         #Add 7 Items
         for($i = 0; $i < 7; $i++) {
             $this->todolist->addItem(new Item("Item_name" . strval($i),"Item_content" . strval($i)));
-            sleep(2);
+            // Interval de temps : 30 minutes
+            sleep(30*60);
+            // Interval de temps : 2 secondes
+            // sleep(2);
         }
+
         //Set Owner
         $user = new User("daniel@gmail.com","Daniel", "Larssonsdqsd", "passwordTest", 24);
         $this->todolist->setOwner($user);
