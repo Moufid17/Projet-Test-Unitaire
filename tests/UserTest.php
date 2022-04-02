@@ -1,6 +1,7 @@
 <?php
 
 use App\Entity\User;
+use App\Entity\ToDoList;
 use PHPUnit\Framework\TestCase;
 
 class UserTest extends TestCase
@@ -64,5 +65,13 @@ class UserTest extends TestCase
     {
         $this->user->setAge(12);
         $this->assertFalse($this->user->isValid());
+    }
+
+    public function testValidCreateFirstTodolist()
+    {
+        $this->user->setTodolist(new ToDoList());
+
+        // $this->assertInstanceOf(ToDoList::class,$this->user->getTodolist());
+        $this->assertNotNull($this->user->getTodolist());
     }
 }

@@ -76,7 +76,6 @@ class ToDoListTest extends TestCase
     public function testSendEmailOnAddEighthItem()
     {
         #Add 7 Items
-        $itemCollection = [];
         for($i = 0; $i < 7; $i++) {
             $this->todolist->addItem(new Item("Item_name" . strval($i),"Item_content" . strval($i)));
             sleep(2);
