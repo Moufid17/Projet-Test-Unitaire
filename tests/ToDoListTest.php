@@ -31,7 +31,7 @@ class ToDoListTest extends TestCase
     {
         $item1 = new Item("Item1_name","Item1_content");
         // Interval de temps : 30 minutes
-        sleep(30*60);
+        sleep(1*60);
 
         // Interval de temps : 2 secondes
         // sleep(2);
@@ -47,7 +47,7 @@ class ToDoListTest extends TestCase
     {
         $item1 = new Item("Item1_name","Item1_content");
         // Interval de temps : 29 minutes
-        sleep(29*60);
+        sleep(1*60);
         // Interval de temps : 1 seconde
         // sleep(1);
 
@@ -62,7 +62,7 @@ class ToDoListTest extends TestCase
     {
         $item1 = new Item("Item1_name","Item1_content");
         // Interval de temps : 30 minutes
-        sleep(30*60);
+        sleep(1*60);
         // Interval de temps : 2 secondes
         // sleep(2);
 
@@ -80,7 +80,7 @@ class ToDoListTest extends TestCase
         for($i = 0; $i < 10; $i++) {
             $this->todolist->addItem(new Item("Item_name" . strval($i),"Item_content" . strval($i)));
             // Interval de temps : 30 minutes
-            sleep(30*60);
+            sleep(1*60);
             // Interval de temps : 2 secondes
             // sleep(2);
         }
@@ -96,7 +96,7 @@ class ToDoListTest extends TestCase
         for($i = 0; $i < 7; $i++) {
             $this->todolist->addItem(new Item("Item_name" . strval($i),"Item_content" . strval($i)));
             // Interval de temps : 30 minutes
-            sleep(30*60);
+            sleep(1*60);
             // Interval de temps : 2 secondes
             // sleep(2);
         }
